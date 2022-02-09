@@ -1,11 +1,9 @@
 pipeline {
-    agent {
-        label 'agentLabelName'
-    }
+    agent any 
     stages {
         stage('Build') { 
             steps {
-                echo "hello world" 
+                println ("Hello Shalini and Benly !!!") 
             }
         }
 }
