@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent { docker { image 'busybox:latest' } }
     triggers {
         pollSCM '* * * * *' 
     }
