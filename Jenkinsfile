@@ -12,7 +12,9 @@
 // }
 
 pipeline {
-    agent { kubernetes }
+    agent { 
+        label 'default' 
+    }
     triggers {
         pollSCM '* * * * *' 
     }    
