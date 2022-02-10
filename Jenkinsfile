@@ -11,6 +11,20 @@
 //         }
 // }
 
+// pipeline {
+//     agent none
+//     triggers {
+//         pollSCM '* * * * *' 
+//     }    
+//     stages {
+//         stage('build') {
+//             steps {
+//                 echo "Hello Shalini and Benly , good job !!!"
+//             }
+//         }
+//     }
+// }
+
 pipeline {
     agent none
     triggers {
@@ -19,7 +33,7 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                echo "Hello Shalini and Benly , good job !!!"
+                echo "How are you doing?"
             }
         }
     }
