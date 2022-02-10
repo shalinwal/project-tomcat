@@ -13,7 +13,7 @@
 
 pipeline {
     agent { 
-        label 'default' 
+        any
     }
     triggers {
         pollSCM '* * * * *' 
