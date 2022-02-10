@@ -12,9 +12,7 @@
 // }
 
 pipeline {
-    agent { 
-        any
-    }
+    agent none
     triggers {
         pollSCM '* * * * *' 
     }    
