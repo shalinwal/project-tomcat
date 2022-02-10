@@ -12,7 +12,7 @@
 // }
 
 pipeline {
-    agent { kubernetes } }
+    agent { kubernetes }
     triggers {
         pollSCM '* * * * *' 
     }    
