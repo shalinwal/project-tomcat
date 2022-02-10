@@ -33,7 +33,7 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                echo "How are you doing?"
+                echo "I am doing good?"
             }
         }
     }
