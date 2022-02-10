@@ -1,12 +1,12 @@
 pipeline {
-    agent any
+    agent { docker { image 'busybox:latest' } }
     triggers {
         pollSCM '* * * * *' 
     }
     stages {
         stage('Build') { 
             steps {
-                println ("Hello Shalini and Benly !!!") 
+                echo "Hello Shalini and Benly !!!"
             }
         }
 }
