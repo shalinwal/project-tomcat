@@ -19,7 +19,7 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                echo "Hello Shalini and Benly !!!"
+                echo "Hello Shalini and Benly , good job !!!"
             }
         }
     }
