@@ -26,14 +26,16 @@
 // }
 
 pipeline {
-    agent none
+    agent {
+        node {
+            label 'master'
     triggers {
         pollSCM '* * * * *' 
     }    
     stages {
         stage('build') {
             steps {
-                echo "I am doing good?"
+                echo "I am doing good"
             }
         }
     }
