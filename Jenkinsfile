@@ -32,7 +32,7 @@ pipeline {
                     // // sh "ulimit -n 10240"
                     // sh "sudo service docker stop"
                     // sh "echo \"limit nofile 262144 262144\" >> /etc/init/docker.conf"
-                    // sh "sudo service docker start"
+                    sh "service docker start"
                     // // sh "sudo dockerd"
                     sh "chmod 666 /var/run/docker.sock"
                     // sh "sleep 10"
