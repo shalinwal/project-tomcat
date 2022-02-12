@@ -27,7 +27,7 @@ pipeline {
             }
             steps {
                 container('ubuntu') {
-                    sh "apt update && apt upgrade && apt install curl"
+                    sh "apt update && apt upgrade -y && apt install curl"
                     sh "curl -fsSL https://get.docker.com -o get-docker.sh"
                     sh "docker --version"
                     sh "docker build -t ${REGISTRY}:${env.BUILD_ID} ."
