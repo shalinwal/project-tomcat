@@ -18,7 +18,7 @@ spec:
       command:
         - cat
       tty: true
-      privileged: true
+      # privileged: true
       volumeMounts:
         - name: dockersock
           mountPath: /var/run/docker.sock
@@ -31,7 +31,8 @@ spec:
       image: ubuntu:21.10
       securityContext:
         allowPrivilegeEscalation: false
-        runAsUser: 0      
+        runAsUser: 0
+        privileged: true      
       command:
         - cat
       tty: true
