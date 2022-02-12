@@ -48,7 +48,7 @@ pipeline {
             steps {
                 container('docker') {
                     docker.withRegistry('', "${REGISTRY_CREDENTIAL}") {
-                        sh "dockerImage.push()"
+                        sh dockerImage.push()
                     }
                 }
             }
