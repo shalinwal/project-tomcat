@@ -32,7 +32,7 @@ spec:
       command:
         - cat
       tty: true
-      # privileged: true
+      privileged: true
   volumes:
     - name: dockersock
       hostPath:
