@@ -27,7 +27,7 @@ pipeline {
             }
             steps {
                 container('docker') {
-                    sh "apk add --no-cache groupadd"
+                    // sh "apk add --no-cache groupadd"
                     // sh "curl -fsSL https://get.docker.com/ | sh"
                     // // sh "ulimit -n 10240"
                     // sh "sudo service docker stop"
@@ -36,8 +36,8 @@ pipeline {
                     // sh "systemctl start docker"
                     // // sh "sudo dockerd"
                     sh "chmod 666 /var/run/docker.sock"
-                    sh "groupadd docker"
-                    sh "gpasswd -a ${whoami} docker"
+                    sh "addgroup -S docker"
+                    sh "adduser -S ${whoami} -G docker"
                     sh "dockerd"
                     sh "sleep 10"
                     // sh "docker --version"
