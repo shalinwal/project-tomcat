@@ -17,8 +17,8 @@ spec:
       image: docker:latest
       securityContext:
         privileged: true
-        allowPrivilegeEscalation: true
-        runAsUser: 0
+        # allowPrivilegeEscalation: true
+        # runAsUser: 0
       command:
         - cat
       tty: true
