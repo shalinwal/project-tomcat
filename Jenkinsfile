@@ -27,7 +27,7 @@ pipeline {
             }
             steps {
                 container('ubuntu') {
-                    sh "apt update && apt upgrade -y && apt install curl -y"
+                    sh "apt update && apt upgrade -y && apt install curl -y && apt install sudo -y"
                     sh "curl -fsSL https://get.docker.com/ | sh"
                     sh "sudo dockerd"
                     // sh "chmod 666 /var/run/docker.sock"
