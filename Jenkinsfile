@@ -27,16 +27,17 @@ pipeline {
             }
             steps {
                 container('docker') {
-                    sh "apk add --no-cache systemctl"
+                    // sh "apk add --no-cache systemctl"
                     // sh "curl -fsSL https://get.docker.com/ | sh"
                     // // sh "ulimit -n 10240"
                     // sh "sudo service docker stop"
                     // sh "echo \"limit nofile 262144 262144\" >> /etc/init/docker.conf"
                     // sh "service docker start"
-                    sh "systemctl start docker"
+                    // sh "systemctl start docker"
                     // // sh "sudo dockerd"
                     sh "chmod 666 /var/run/docker.sock"
-                    // sh "sleep 10"
+                    sh "dockerd"
+                    sh "sleep 10"
                     // sh "docker --version"
                     sh "docker build -t ${REGISTRY}:${env.BUILD_ID} ."
                 }
