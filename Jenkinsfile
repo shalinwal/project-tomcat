@@ -1,40 +1,57 @@
-// pipeline {
-//     agent { docker { image 'busybox:latest' } }
-//     triggers {
-//         pollSCM '* * * * *' 
-//     }
-//     stages {
-//         stage('Build') { 
-//             steps {
-//                 echo "Hello Shalini and Benly !!!"
-//             }
-//         }
-// }
-
-// pipeline {
-//     agent none
-//     triggers {
-//         pollSCM '* * * * *' 
-//     }    
-//     stages {
-//         stage('build') {
-//             steps {
-//                 echo "Hello Shalini and Benly , good job !!!"
-//             }
-//         }
-//     }
-// }
-
 pipeline {
-    agent none
-    triggers {
-        pollSCM '* * * * *' 
-    }    
+    // environment {
+    //     DEPLOY = "${env.BRANCH_NAME == "master" || env.BRANCH_NAME == "develop" ? "true" : "false"}"
+    //     NAME = "${env.BRANCH_NAME == "master" ? "example" : "example-staging"}"
+    //     VERSION = readMavenPom().getVersion()
+    //     DOMAIN = 'localhost'
+    //     REGISTRY = 'davidcampos/k8s-jenkins-example'
+    //     REGISTRY_CREDENTIAL = 'dockerhub-davidcampos'
+    // }
+    agent {
+        kubernetes {
+            // defaultContainer 'jnlp'
+            yamlFile 'build.yaml'
+        }
+    }
     stages {
-        stage('build') {
+        stage('Build') {
             steps {
-                echo "I am doing good."
+                container('docker') {
+                    docker --version
+                }
             }
         }
+        // stage('Docker Build') {
+        //     when {
+        //         environment name: 'DEPLOY', value: 'true'
+        //     }
+        //     steps {
+        //         container('docker') {
+        //             sh "docker build -t ${REGISTRY}:${VERSION} ."
+        //         }
+        //     }
+        // }
+        // stage('Docker Publish') {
+        //     when {
+        //         environment name: 'DEPLOY', value: 'true'
+        //     }
+        //     steps {
+        //         container('docker') {
+        //             withDockerRegistry([credentialsId: "${REGISTRY_CREDENTIAL}", url: ""]) {
+        //                 sh "docker push ${REGISTRY}:${VERSION}"
+        //             }
+        //         }
+        //     }
+        // }
+        // stage('Kubernetes Deploy') {
+        //     when {
+        //         environment name: 'DEPLOY', value: 'true'
+        //     }
+        //     steps {
+        //         container('helm') {
+        //             sh "helm upgrade --install --force --set name=${NAME} --set image.tag=${VERSION} --set domain=${DOMAIN} ${NAME} ./helm"
+        //         }
+        //     }
+        // }
     }
 }
