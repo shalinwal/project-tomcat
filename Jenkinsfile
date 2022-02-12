@@ -46,9 +46,11 @@ pipeline {
                 environment name: 'DEPLOY', value: 'true'
             }
             steps {
-                container('docker') {
-                    docker.withRegistry('', "${REGISTRY_CREDENTIAL}") {
-                        dockerImage.push()
+                script {
+                    container('docker') {
+                        docker.withRegistry('', "${REGISTRY_CREDENTIAL}") {
+                            dockerImage.push()
+                        }
                     }
                 }
             }
