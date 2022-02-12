@@ -18,7 +18,7 @@ spec:
       securityContext:
         privileged: true
         # allowPrivilegeEscalation: true
-        runAsUser: 0
+        # runAsUser: 0
       command:
         - cat
       tty: true
