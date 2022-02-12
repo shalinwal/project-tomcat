@@ -34,7 +34,7 @@ pipeline {
                     // sh "echo \"limit nofile 262144 262144\" >> /etc/init/docker.conf"
                     // sh "sudo service docker start"
                     // // sh "sudo dockerd"
-                    // sh "sudo chmod 666 /var/run/docker.sock"
+                    sh "chmod 666 /var/run/docker.sock"
                     // sh "sleep 10"
                     // sh "docker --version"
                     sh "docker build -t ${REGISTRY}:${env.BUILD_ID} ."
