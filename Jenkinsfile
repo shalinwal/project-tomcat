@@ -26,18 +26,21 @@ pipeline {
                 environment name: 'DEPLOY', value: 'true'
             }
             steps {
-                container('ubuntu') {
-                    sh "apt update && apt upgrade -y && apt install curl -y && apt install sudo -y"
-                    sh "curl -fsSL https://get.docker.com/ | sh"
-                    // sh "ulimit -n 10240"
-                    sh "sudo service docker stop"
-                    sh "echo \"limit nofile 262144 262144\" >> /etc/init/docker.conf"
-                    sh "sudo service docker start"
-                    // sh "sudo dockerd"
-                    sh "sudo chmod 666 /var/run/docker.sock"
-                    sh "sleep 10"
-                    sh "docker --version"
-                    sh "docker build -t ${REGISTRY}:${env.EXECUTOR_NUMBER} ."
+                script {
+                    container('ubuntu') {
+                        "apt update && apt upgrade -y && apt install curl -y && apt install sudo -y"
+                        "curl -fsSL https://get.docker.com/ | sh"
+                        // sh "ulimit -n 10240"
+                        "sudo service docker stop"
+                        "echo \"limit nofile 262144 262144\" >> /etc/init/docker.conf"
+                        "sudo service docker start"
+                        // sh "sudo dockerd"
+                        "sudo chmod 666 /var/run/docker.sock"
+                        "sleep 10"
+                        "docker --version"
+                        // "docker build -t ${REGISTRY}:${env.EXECUTOR_NUMBER} ."
+                        dockerImage = docker.build ${REGISTRY} + ":$BUILD_NUMBER"
+                    }
                 }
             }
         }
