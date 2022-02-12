@@ -31,7 +31,8 @@ spec:
       image: ubuntu:21.10
       command:
         - cat
-      tty: true      
+      tty: true
+      # privileged: true
   volumes:
     - name: dockersock
       hostPath:
