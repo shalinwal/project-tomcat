@@ -36,14 +36,14 @@ spec:
       command:
         - cat
       tty: true
-      # volumeMounts:
-      #   - name: dockersock
-      #     mountPath: /var/run/docker.sock
+      volumeMounts:
+        - name: docker-sock
+          mountPath: /var/run
       # privileged: true
   volumes:
-    - name: dockersock
+    - name: docker-sock
       hostPath:
-        path: /var/run/docker.sock
+        path: /var/run
     # - name: m2
     #   hostPath:
     #     path: /root/.m2
