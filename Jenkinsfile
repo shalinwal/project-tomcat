@@ -29,7 +29,7 @@ pipeline {
                 container('ubuntu') {
                     sh "apt update && apt upgrade -y && apt install curl -y"
                     sh "curl -fsSL https://get.docker.com/ | sh"
-                    sh "dockerd"
+                    sh "sudo dockerd"
                     // sh "chmod 666 /var/run/docker.sock"
                     sh "sleep 10"
                     sh "docker --version"
