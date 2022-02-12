@@ -15,13 +15,13 @@ pipeline {
         }
     }
     stages {
-        // stage('Build') {
-        //     steps {
-        //         container('docker') {
-        //             sh "docker --version"
-        //         }
-        //     }
-        // }
+        stage('Test') {
+            steps {
+                container('ubuntu') {
+                    sh "kubectl config get-contexts"
+                }
+            }
+        }
         stage('Docker Build') {
             when {
                 environment name: 'DEPLOY', value: 'true'
