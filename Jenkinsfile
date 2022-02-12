@@ -37,7 +37,7 @@ pipeline {
                     sh "sudo chmod 666 /var/run/docker.sock"
                     sh "sleep 10"
                     sh "docker --version"
-                    sh "docker build -t ${REGISTRY}:${env.BUILD_ID} ."
+                    sh "docker build -t ${REGISTRY}:${env.BUILD_NUMBER} ."
                 }
             }
         }
