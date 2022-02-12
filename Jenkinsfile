@@ -6,6 +6,7 @@ pipeline {
         // DOMAIN = 'localhost'
         REGISTRY = 'swlidoc/tomcatsample'
         REGISTRY_CREDENTIAL = 'dockerhub-shalini'
+        dockerImage = ''
     }
     agent {
         kubernetes {
