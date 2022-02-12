@@ -35,7 +35,7 @@ pipeline {
                     // sh "service docker start"
                     // sh "systemctl start docker"
                     // // sh "sudo dockerd"
-                    // sh "chmod 666 /var/run/docker.sock"                    
+                    sh "chmod 666 /var/run/docker.sock"                    
                     // sh "addgroup -S docker"
                     // sh "adduser -S jenkinsadmin -G docker"
                     // sh "dockerd"
