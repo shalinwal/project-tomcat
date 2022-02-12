@@ -26,10 +26,10 @@ pipeline {
                 environment name: 'DEPLOY', value: 'true'
             }
             steps {
-                container('ubuntu') {
-                    sh "apt update && sudo apt upgrade && apt install curl"
-                    sh "curl -fsSL https://get.docker.com -o get-docker.sh"
-                    sh "sleep 10"
+                container('docker') {
+                    // sh "apt update && sudo apt upgrade && apt install curl"
+                    // sh "curl -fsSL https://get.docker.com -o get-docker.sh"
+                    sh "nerdctl --version"
                     sh "docker build -t ${REGISTRY}:${env.BUILD_ID} ."
                 }
             }
