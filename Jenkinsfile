@@ -4,7 +4,7 @@ pipeline {
         // NAME = "${env.BRANCH_NAME == "main" ? "example" : "example-staging"}"
         // VERSION = ${env.BUILD_ID}
         // DOMAIN = 'localhost'
-        REGISTRY = 'swlidoc/tomcatsample'
+        REGISTRY = "swlidoc/tomcatsample"
         REGISTRY_CREDENTIAL = 'dockerhub-shalini'
         dockerImage = ''
     }
