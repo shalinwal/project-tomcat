@@ -1,12 +1,12 @@
 pipeline {
-    // environment {
-    //     DEPLOY = "${env.BRANCH_NAME == "master" || env.BRANCH_NAME == "develop" ? "true" : "false"}"
-    //     NAME = "${env.BRANCH_NAME == "master" ? "example" : "example-staging"}"
-    //     VERSION = readMavenPom().getVersion()
-    //     DOMAIN = 'localhost'
-    //     REGISTRY = 'davidcampos/k8s-jenkins-example'
-    //     REGISTRY_CREDENTIAL = 'dockerhub-davidcampos'
-    // }
+    environment {
+        DEPLOY = "${env.BRANCH_NAME == "main" || env.BRANCH_NAME == "develop" ? "true" : "false"}"
+        // NAME = "${env.BRANCH_NAME == "main" ? "example" : "example-staging"}"
+        VERSION = ${env.BUILD_ID}
+        // DOMAIN = 'localhost'
+        REGISTRY = 'swlidoc/tomcatsample'
+        // REGISTRY_CREDENTIAL = 'dockerhub-davidcampos'
+    }
     agent {
         kubernetes {
             // defaultContainer 'jnlp'
@@ -14,23 +14,23 @@ pipeline {
         }
     }
     stages {
-        stage('Build') {
-            steps {
-                container('docker') {
-                    sh "docker --version"
-                }
-            }
-        }
-        // stage('Docker Build') {
-        //     when {
-        //         environment name: 'DEPLOY', value: 'true'
-        //     }
+        // stage('Build') {
         //     steps {
         //         container('docker') {
-        //             sh "docker build -t ${REGISTRY}:${VERSION} ."
+        //             sh "docker --version"
         //         }
         //     }
         // }
+        stage('Docker Build') {
+            when {
+                environment name: 'DEPLOY', value: 'true'
+            }
+            steps {
+                container('docker') {
+                    sh "docker build -t ${REGISTRY}:${VERSION} ."
+                }
+            }
+        }
         // stage('Docker Publish') {
         //     when {
         //         environment name: 'DEPLOY', value: 'true'
