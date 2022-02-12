@@ -37,7 +37,7 @@ pipeline {
                     // // sh "sudo dockerd"
                     sh "chmod 666 /var/run/docker.sock"
                     sh "groupadd docker"
-                    sh "gpasswd -a $(whoami) docker"
+                    sh "gpasswd -a ${whoami} docker"
                     sh "dockerd"
                     sh "sleep 10"
                     // sh "docker --version"
