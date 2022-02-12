@@ -27,7 +27,7 @@ pipeline {
             }
             steps {
                 container('docker') {
-                    sh "apt update && apt upgrade -y && apt install systemctl -y"
+                    sh "apk install systemctl"
                     // sh "curl -fsSL https://get.docker.com/ | sh"
                     // // sh "ulimit -n 10240"
                     // sh "sudo service docker stop"
