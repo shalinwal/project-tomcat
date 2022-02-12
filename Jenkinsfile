@@ -37,7 +37,7 @@ pipeline {
                     // // sh "sudo dockerd"
                     sh "chmod 666 /var/run/docker.sock"
                     sh "addgroup -S docker"
-                    sh "adduser -S root -G docker"
+                    sh "adduser root -G docker"
                     sh "dockerd"
                     sh "sleep 10"
                     // sh "docker --version"
