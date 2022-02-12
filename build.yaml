@@ -27,6 +27,11 @@ spec:
       command:
         - cat
       tty: true
+    - name: ubuntu
+      image: ubuntu:20.04
+      command:
+        - cat
+      tty: true      
   volumes:
     - name: dockersock
       hostPath:

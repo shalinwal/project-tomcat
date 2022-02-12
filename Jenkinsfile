@@ -26,9 +26,9 @@ pipeline {
                 environment name: 'DEPLOY', value: 'true'
             }
             steps {
-                container('docker') {
-                    sh "usermod -aG docker root"
-                    sh "chmod 666 /var/run/docker.sock"
+                container('ubuntu') {
+                    sh "apt-get update"
+                    sh "apt-get install docker-ce docker-ce-cli containerd.io"
                     sh "sleep 10"
                     sh "docker build -t ${REGISTRY}:${env.BUILD_ID} ."
                 }
