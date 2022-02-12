@@ -27,7 +27,7 @@ pipeline {
             }
             steps {
                 container('docker') {
-                    sh "apk add -u systemctl"
+                    sh "apk add --no-cache systemctl"
                     // sh "curl -fsSL https://get.docker.com/ | sh"
                     // // sh "ulimit -n 10240"
                     // sh "sudo service docker stop"
