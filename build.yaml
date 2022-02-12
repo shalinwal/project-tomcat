@@ -36,9 +36,9 @@ spec:
       command:
         - cat
       tty: true
-      volumeMounts:
-        - name: dockersock
-          mountPath: /var/run/docker.sock
+      # volumeMounts:
+      #   - name: dockersock
+      #     mountPath: /var/run/docker.sock
       # privileged: true
   volumes:
     - name: dockersock
