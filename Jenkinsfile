@@ -2,7 +2,7 @@ pipeline {
     environment {
         DEPLOY = "${env.BRANCH_NAME == "main" || env.BRANCH_NAME == "develop" ? "true" : "false"}"
         // NAME = "${env.BRANCH_NAME == "main" ? "example" : "example-staging"}"
-        VERSION = ${env.BUILD_ID}
+        // VERSION = ${env.BUILD_ID}
         // DOMAIN = 'localhost'
         REGISTRY = 'swlidoc/tomcatsample'
         // REGISTRY_CREDENTIAL = 'dockerhub-davidcampos'
@@ -27,7 +27,7 @@ pipeline {
             }
             steps {
                 container('docker') {
-                    sh "docker build -t ${REGISTRY}:${VERSION} ."
+                    sh "docker build -t ${REGISTRY}:${env.BUILD_ID} ."
                 }
             }
         }
