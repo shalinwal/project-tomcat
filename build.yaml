@@ -13,15 +13,15 @@ spec:
     #   volumeMounts:
     #     - name: m2
     #       mountPath: /root/.m2
-    - name: docker
-      image: docker:latest
-      command:
-        - cat
-      tty: true
-      privileged: true
-      volumeMounts:
-        - name: dockersock
-          mountPath: /var/run/docker.sock
+    # - name: docker
+    #   image: docker:latest
+    #   command:
+    #     - cat
+    #   tty: true
+    #   privileged: true
+    #   volumeMounts:
+    #     - name: dockersock
+    #       mountPath: /var/run/docker.sock
     - name: helm
       image: lachlanevenson/k8s-helm:v3.1.1
       command:
@@ -36,6 +36,9 @@ spec:
       command:
         - cat
       tty: true
+      volumeMounts:
+        - name: dockersock
+          mountPath: /var/run/docker.sock
       # privileged: true
   volumes:
     - name: dockersock
