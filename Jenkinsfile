@@ -27,8 +27,7 @@ pipeline {
             }
             steps {
                 container('ubuntu') {
-                    sh "apt-get update"
-                    sh "apt-get install docker-ce docker-ce-cli containerd.io"
+                    sh "curl -fsSL https://get.docker.com -o get-docker.sh"
                     sh "sleep 10"
                     sh "docker build -t ${REGISTRY}:${env.BUILD_ID} ."
                 }
