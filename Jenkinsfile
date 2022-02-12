@@ -52,7 +52,7 @@ pipeline {
             steps {
                 script {
                     container('docker') {
-                        docker.withRegistry('', "${REGISTRY_CREDENTIAL}") {
+                        docker.withRegistry('', REGISTRY_CREDENTIAL) {
                             dockerImage.push()
                         }
                     }
