@@ -1,6 +1,6 @@
 pipeline {
     environment {
-        DEPLOY = "${env.BRANCH_NAME == "main" || env.BRANCH_NAME == "develop/**" ? "true" : "false"}"
+        DEPLOY = "${env.BRANCH_NAME == "main" || env.BRANCH_NAME == "develop/*" ? "true" : "false"}"
         // NAME = "${env.BRANCH_NAME == "main" ? "example" : "example-staging"}"
         // VERSION = ${env.BUILD_ID}
         // DOMAIN = 'localhost'
