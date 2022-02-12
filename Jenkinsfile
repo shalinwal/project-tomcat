@@ -27,8 +27,8 @@ pipeline {
             }
             steps {
                 container('docker') {
-                    sh "chmod 777 /var/run/docker.sock"
-                    sh "sleep 10"
+                    sh "systemctl status docker"
+                    // sh "sleep 10"
                     sh "docker build -t ${REGISTRY}:${env.BUILD_ID} ."
                 }
             }
