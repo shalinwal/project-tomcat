@@ -30,10 +30,10 @@ pipeline {
                     sh "apt update && apt upgrade -y && apt install curl -y && apt install sudo -y"
                     sh "curl -fsSL https://get.docker.com/ | sh"
                     // sh "sudo dockerd"
-                    // sh "chmod 666 /var/run/docker.sock"
+                    sh "sudo chmod 666 /var/run/docker.sock"
                     sh "sleep 10"
                     sh "docker --version"
-                    sh "sudo docker build -t ${REGISTRY}:${env.BUILD_ID} ."
+                    sh "docker build -t ${REGISTRY}:${env.BUILD_ID} ."
                 }
             }
         }
