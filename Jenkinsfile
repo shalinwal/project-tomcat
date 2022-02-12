@@ -15,13 +15,14 @@ pipeline {
         }
     }
     stages {
-        stage('Test') {
-            steps {
-                container('ubuntu') {
-                    sh "kubectl config get-contexts"
-                }
-            }
-        }
+        // stage('Test') {
+        //     steps {
+        //         container('ubuntu') {
+        //             sh "apt update && apt upgrade -y && apt install curl -y"
+        //             sh "kubectl config get-contexts"
+        //         }
+        //     }
+        // }
         stage('Docker Build') {
             when {
                 environment name: 'DEPLOY', value: 'true'
