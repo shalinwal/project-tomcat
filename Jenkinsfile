@@ -38,7 +38,7 @@ pipeline {
                     sh "chmod 666 /var/run/docker.sock"                    
                     sh "addgroup -S docker"
                     sh "adduser -S jenkinsadmin -G docker"
-                    sh "dockerd"
+                    // sh "dockerd"
                     sh "sleep 10"
                     // sh "docker --version"
                     sh "docker build -t ${REGISTRY}:${env.BUILD_ID} ."
