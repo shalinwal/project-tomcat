@@ -8,7 +8,7 @@ pipeline {
         REGISTRY_CREDENTIAL = 'dockerhub-shalini'
         dockerImage = ''
         // MY_ID = $("${env.BRANCH_NAME}-${currentBuild.id}" | tr -dc [A-Za-z0-9-])
-        MY_ID = $("${env.BRANCH_NAME}-$BUILD_NUMBER" | tr -dc [A-Za-z0-9-])
+        MY_ID = $("${env.BRANCH_NAME}-$BUILD_NUMBER") | tr -dc [A-Za-z0-9-]
     }
     agent {
         kubernetes {
