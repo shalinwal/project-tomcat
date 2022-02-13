@@ -7,7 +7,7 @@ pipeline {
         REGISTRY = "swlidoc/tomcatsample"
         REGISTRY_CREDENTIAL = 'dockerhub-shalini'
         dockerImage = ''
-        MY_ID = echo ("${env.BRANCH_NAME}-${currentBuild.id}" | tr -dc [A-Za-z0-9-])
+        MY_ID = $("${env.BRANCH_NAME}-${currentBuild.id}" | tr -dc [A-Za-z0-9-])
     }
     agent {
         kubernetes {
