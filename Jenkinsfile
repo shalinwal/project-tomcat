@@ -8,7 +8,7 @@ pipeline {
         REGISTRY_CREDENTIAL = 'dockerhub-shalini'
         dockerImage = ''
         // MY_ID = $("${env.BRANCH_NAME}-${currentBuild.id}" | tr -dc [A-Za-z0-9-])
-        MY_ID = "${env.BRANCH_NAME}-${currentBuild.id}" | tr -dc '[:alnum:]\n\r' | tr '[:upper:]' '[:lower:]'
+        //MY_ID = "${env.BRANCH_NAME}-${currentBuild.id}" | tr -dc '[:alnum:]\n\r' | tr '[:upper:]' '[:lower:]'
     }
     agent {
         kubernetes {
@@ -43,7 +43,7 @@ pipeline {
                         sh "sleep 10"
                         sh "docker --version"
                         // "docker build -t ${REGISTRY}:${env.EXECUTOR_NUMBER} ."
-                        dockerImage = docker.build REGISTRY + ":$MY_ID"
+                        dockerImage = docker.build REGISTRY + ":$GIT_COMMIT"
                     }
                 }
             }
