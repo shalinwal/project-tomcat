@@ -71,8 +71,8 @@ pipeline {
             }
             steps {
                 container('ubuntu') {
-                    sh "apt update && apt upgrade -y && apt install curl -y && apt install sudo -y"
-                    sh "sudo apt-get install -y kubectl"
+                    sh "apt update && apt upgrade -y && apt install curl -y && apt install sudo -y && apt install kubectl -y"
+                    // sh "sudo apt-get install -y kubectl"
                     sh "curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3"
                     sh "sudo chmod 700 get_helm.sh"
                     sh "./get_helm.sh"
