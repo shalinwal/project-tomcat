@@ -70,11 +70,11 @@ pipeline {
                 environment name: 'DEPLOY', value: 'true'
             }
             steps {
-                container('ubuntu') {
-                    sh "apt update && apt upgrade -y && apt install curl -y && apt install sudo -y"
-                    sh "curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3"
-                    sh "sudo chmod 700 get_helm.sh"
-                    sh "./get_helm.sh"
+                container('helm') {
+                    // sh "apt update && apt upgrade -y && apt install curl -y && apt install sudo -y"
+                    // sh "curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3"
+                    // sh "sudo chmod 700 get_helm.sh"
+                    // sh "./get_helm.sh"
                     sh "helm upgrade --install --set deployment.image=dockerImage --set secret.securestring=IMAGEPULL_SECRET ${HELM_RELEASE} ./helm-deployment"
                 }
             }
