@@ -72,10 +72,12 @@ pipeline {
             steps {
                 container('ubuntu') {
                     sh "apt update && apt upgrade -y && apt install curl -y && apt install sudo -y"
-                    sh "curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -"
-                    sh "sudo touch /etc/apt/sources.list.d/kubernetes.list "
-                    sh echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
-                    sh "apt update && apt install -y kubectl"
+                    // sh "curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -"
+                    // sh "sudo touch /etc/apt/sources.list.d/kubernetes.list "
+                    // sh echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
+                    // sh "apt update && apt install -y kubectl"
+                    sh "curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
+                    sh "chmod +x ./kubectl && mv ./kubectl /usr/local/bin"
                     sh "curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3"
                     sh "sudo chmod 700 get_helm.sh"
                     sh "./get_helm.sh"
