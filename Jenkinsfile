@@ -81,13 +81,13 @@ pipeline {
                     sh "curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3"
                     sh "sudo chmod 700 get_helm.sh"
                     sh "./get_helm.sh"
-                    withCredentials([file(credentialsId: 'rancher_test_kubeconfig', variable: 'KUBECRED')]) {
+                    withCredentials([file(credentialsId: 'k3d-shalini02', variable: 'KUBECRED')]) {
                         // change context with related namespace
                         sh 'mkdir ~/.kube'
                         sh 'cat $KUBECRED > ~/.kube/config'
-                        sh 'KUBE_API_PORT="--port=8080"'
+                        // sh 'KUBE_API_PORT="--port=8080"'
                         sh "kubectl config view"
-                        sh "kubectl config use-context rancher-desktop"
+                        // sh "kubectl config use-context rancher-desktop"
                         sh "kubectl get nodes"
                     }
                     // sh "helm upgrade --install --set deployment.image=dockerImage --set secret.securestring=IMAGEPULL_SECRET ${HELM_RELEASE} ./helm-deployment"
