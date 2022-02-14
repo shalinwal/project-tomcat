@@ -70,7 +70,7 @@ pipeline {
             }
             steps {
                 container('helm') {
-                    sh "helm upgrade --install -set deployment.image=dockerImage --set secret.securestring=IMAGEPULL_SECRET ${HELM_RELEASE} ./helm-deployment"
+                    sh "helm upgrade --install --set deployment.image=dockerImage --set secret.securestring=IMAGEPULL_SECRET ${HELM_RELEASE} ./helm-deployment"
                 }
             }
         }
