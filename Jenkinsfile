@@ -7,7 +7,7 @@ pipeline {
         // DOMAIN = 'localhost'
         REGISTRY = "swlidoc/tomcatsample"
         REGISTRY_CREDENTIAL = 'dockerhub-shalini'
-        IMAGEPULL_SECRET = 'dockersecret'
+        IMAGEPULL_SECRET = credentials('dockersecret')
         // dockerImage = ''
         dockerImage = 'swlidoc/tomcatsample:d22067746f6684c57bd55d689c0891c5d9d22652'
         // MY_ID = $("${env.BRANCH_NAME}-${currentBuild.id}" | tr -dc [A-Za-z0-9-])
@@ -90,7 +90,8 @@ pipeline {
                     //     // sh "kubectl config use-context rancher-desktop"
                     //     sh "kubectl get nodes"
                     // }
-                    sh "helm upgrade --install --set deployment.image=${dockerImage} --set secret.securestring=${IMAGEPULL_SECRET} ${HELM_RELEASE} ./helm-deployment"
+                    // sh "helm upgrade --install --set deployment.image=${dockerImage} --set secret.securestring=${IMAGEPULL_SECRET} ${HELM_RELEASE} ./helm-deployment"
+                    sh "helm upgrade --install --set deployment.image=${dockerImage} --set secret.securestring=${IMAGEPULL_SECRET} ${HELM_RELEASE} ./helm-deployment"                 
                 }
             }
         }
