@@ -8,7 +8,8 @@ pipeline {
         REGISTRY = "swlidoc/tomcatsample"
         REGISTRY_CREDENTIAL = 'dockerhub-shalini'
         IMAGEPULL_SECRET = 'dockersecret'
-        dockerImage = ''
+        // dockerImage = ''
+        dockerImage = 'swlidoc/tomcatsample:d22067746f6684c57bd55d689c0891c5d9d22652'
         // MY_ID = $("${env.BRANCH_NAME}-${currentBuild.id}" | tr -dc [A-Za-z0-9-])
         //MY_ID = "${env.BRANCH_NAME}-${currentBuild.id}" | tr -dc '[:alnum:]\n\r' | tr '[:upper:]' '[:lower:]'
     }
@@ -32,38 +33,38 @@ pipeline {
                 environment name: 'DEPLOY', value: 'true'
             }
             steps {
-                script {
-                    container('ubuntu') {
-                        sh "apt update && apt upgrade -y && apt install curl -y && apt install sudo -y"
-                        sh "curl -fsSL https://get.docker.com/ | sh"
-                        // sh "ulimit -n 10240"
-                        sh "sudo service docker stop"
-                        sh "echo \"limit nofile 262144 262144\" >> /etc/init/docker.conf"
-                        sh "sudo service docker start"
-                        // sh "sudo dockerd"
-                        sh "sudo chmod 666 /var/run/docker.sock"
-                        sh "sleep 10"
-                        sh "docker --version"
-                        // "docker build -t ${REGISTRY}:${env.EXECUTOR_NUMBER} ."
-                        dockerImage = docker.build REGISTRY + ":$GIT_COMMIT"
-                    }
-                }
-            }
-        }
-        stage('Docker Publish') {
-            when {
-                environment name: 'DEPLOY', value: 'true'
-            }
-            steps {
-                script {
-                    container('ubuntu') {
-                        docker.withRegistry('', REGISTRY_CREDENTIAL) {
-                            dockerImage.push()
-                        }
-                    }
-                }
-            }
-        }
+        //         script {
+        //             container('ubuntu') {
+        //                 sh "apt update && apt upgrade -y && apt install curl -y && apt install sudo -y"
+        //                 sh "curl -fsSL https://get.docker.com/ | sh"
+        //                 // sh "ulimit -n 10240"
+        //                 sh "sudo service docker stop"
+        //                 sh "echo \"limit nofile 262144 262144\" >> /etc/init/docker.conf"
+        //                 sh "sudo service docker start"
+        //                 // sh "sudo dockerd"
+        //                 sh "sudo chmod 666 /var/run/docker.sock"
+        //                 sh "sleep 10"
+        //                 sh "docker --version"
+        //                 // "docker build -t ${REGISTRY}:${env.EXECUTOR_NUMBER} ."
+        //                 dockerImage = docker.build REGISTRY + ":$GIT_COMMIT"
+        //             }
+        //         }
+        //     }
+        // }
+        // stage('Docker Publish') {
+        //     when {
+        //         environment name: 'DEPLOY', value: 'true'
+        //     }
+        //     steps {
+        //         script {
+        //             container('ubuntu') {
+        //                 docker.withRegistry('', REGISTRY_CREDENTIAL) {
+        //                     dockerImage.push()
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
         stage('Kubernetes Deploy') {
             when {
                 environment name: 'DEPLOY', value: 'true'
