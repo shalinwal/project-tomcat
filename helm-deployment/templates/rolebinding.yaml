@@ -1,11 +1,13 @@
 apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
+kind: RoleBinding
 metadata:
-  name: root-cluster-admin-binding
+  creationTimestamp: null
+  name: defaultbinding
+  namespace: default
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: cluster-admin
+  name: defaultrole
 subjects:
 - apiGroup: rbac.authorization.k8s.io
   kind: User
