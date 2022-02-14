@@ -81,7 +81,7 @@ pipeline {
                     sh "curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3"
                     sh "sudo chmod 700 get_helm.sh"
                     sh "./get_helm.sh"
-                    withCredentials([file(credentialsId: 'rancher-test', variable: 'KUBECRED')]) {
+                    withCredentials([file(credentialsId: 'rancher_test_kubeconfig', variable: 'KUBECRED')]) {
                         // change context with related namespace
                         sh 'cat $KUBECRED > ~/.kube/config'
                         sh "kubectl config view"
