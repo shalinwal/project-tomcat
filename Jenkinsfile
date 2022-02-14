@@ -85,6 +85,7 @@ pipeline {
                         // change context with related namespace
                         sh 'mkdir ~/.kube'
                         sh 'cat $KUBECRED > ~/.kube/config'
+                        sh 'KUBE_API_PORT="--port=8080"'
                         sh "kubectl config view"
                         sh "kubectl config use-context rancher-desktop"
                         sh "kubectl get nodes"
