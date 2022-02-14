@@ -28,11 +28,11 @@ pipeline {
         //         }
         //     }
         // }
-        stage('Docker Build') {
-            when {
-                environment name: 'DEPLOY', value: 'true'
-            }
-            steps {
+        // stage('Docker Build') {
+        //     when {
+        //         environment name: 'DEPLOY', value: 'true'
+        //     }
+        //     steps {
         //         script {
         //             container('ubuntu') {
         //                 sh "apt update && apt upgrade -y && apt install curl -y && apt install sudo -y"
