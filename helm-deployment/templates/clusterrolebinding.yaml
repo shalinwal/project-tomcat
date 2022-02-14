@@ -8,6 +8,6 @@ roleRef:
   kind: ClusterRole
   name: cluster-admin
 subjects:
-- namespace: default
+- namespace: {{ .Values.namespace.name }}
   kind: ServiceAccount
   name: default
