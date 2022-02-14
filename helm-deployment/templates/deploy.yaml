@@ -15,6 +15,7 @@ spec:
       labels:
         app: {{ .Values.deployment.name }}
     spec:
+      serviceAccountName: shalinijenkins
       containers:
       - name: {{ .Values.deployment.name }}
         image: {{ .Values.deployment.image }}
