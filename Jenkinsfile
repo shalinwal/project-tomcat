@@ -2,10 +2,12 @@ pipeline {
     environment {
         DEPLOY = "${env.BRANCH_NAME == "main" || env.BRANCH_NAME.contains("features") ? "true" : "false" || env.BRANCH_NAME.contains("develop") ? "true" : "false"}"
         // NAME = "${env.BRANCH_NAME == "main" ? "example" : "example-staging"}"
+        HELM_RELEASE = "tomcat-deployment"
         // VERSION = ${env.BUILD_ID}
         // DOMAIN = 'localhost'
         REGISTRY = "swlidoc/tomcatsample"
         REGISTRY_CREDENTIAL = 'dockerhub-shalini'
+        IMAGEPULL_SECRET = 'dockersecret'
         dockerImage = ''
         // MY_ID = $("${env.BRANCH_NAME}-${currentBuild.id}" | tr -dc [A-Za-z0-9-])
         //MY_ID = "${env.BRANCH_NAME}-${currentBuild.id}" | tr -dc '[:alnum:]\n\r' | tr '[:upper:]' '[:lower:]'
@@ -62,15 +64,15 @@ pipeline {
                 }
             }
         }
-        // stage('Kubernetes Deploy') {
-        //     when {
-        //         environment name: 'DEPLOY', value: 'true'
-        //     }
-        //     steps {
-        //         container('helm') {
-        //             sh "helm upgrade --install --force --set name=${NAME} --set image.tag=${VERSION} --set domain=${DOMAIN} ${NAME} ./helm"
-        //         }
-        //     }
-        // }
+        stage('Kubernetes Deploy') {
+            when {
+                environment name: 'DEPLOY', value: 'true'
+            }
+            steps {
+                container('helm') {
+                    sh "helm upgrade --install -set deployment.image=dockerImage --set secret.securestring=IMAGEPULL_SECRET ${HELM_RELEASE} ./helm-deployment"
+                }
+            }
+        }
     }
 }
