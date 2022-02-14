@@ -83,7 +83,7 @@ pipeline {
                     sh "./get_helm.sh"
                     withCredentials([file(credentialsId: 'secret', variable: 'rancher-test')]) {
                         // change context with related namespace
-                        sh "kubectl config set-context $(kubectl config current-context) --namespace=${namespace}"
+                        sh 'kubectl config set-context $(kubectl config current-context) --namespace=${namespace}'
                         sh "kubectl config view"
                         sh "kubectl get nodes"
                     }
