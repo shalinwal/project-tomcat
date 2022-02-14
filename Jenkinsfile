@@ -83,6 +83,7 @@ pipeline {
                     sh "./get_helm.sh"
                     withCredentials([file(credentialsId: 'rancher_test_kubeconfig', variable: 'KUBECRED')]) {
                         // change context with related namespace
+                        sh 'mkdir ~/.kube'
                         sh 'cat $KUBECRED > ~/.kube/config'
                         sh "kubectl config view"
                         sh "kubectl get nodes"
