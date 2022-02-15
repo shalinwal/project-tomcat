@@ -37,7 +37,7 @@ pipeline {
                     sh "curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3"
                     sh "sudo chmod 700 get_helm.sh"
                     sh "./get_helm.sh"
-                    withCredentials([file(credentialsId: 'k3d-kubeconfig', variable: 'KUBECRED')]) {
+                    withCredentials([file(credentialsId: 'okukube', variable: 'KUBECRED')]) {
                         // change context with related namespace
                         sh 'mkdir ~/.kube'
                         sh 'cat $KUBECRED > ~/.kube/config'
