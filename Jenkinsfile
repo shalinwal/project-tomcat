@@ -10,6 +10,8 @@ pipeline {
         IMAGEPULL_SECRET = credentials('dockersecret')
         dockerImage = ''
         imagename = '${REGISTRY}:$GIT_COMMIT'
+        deployToLocal = false // Set to true to deploy to same cluster where Jenkins instance is running.
+        kubeconfig = "okukube"
         //dockerImage = 'swlidoc/tomcatsample:d22067746f6684c57bd55d689c0891c5d9d22652'
         // MY_ID = $("${env.BRANCH_NAME}-${currentBuild.id}" | tr -dc [A-Za-z0-9-])
         //MY_ID = "${env.BRANCH_NAME}-${currentBuild.id}" | tr -dc '[:alnum:]\n\r' | tr '[:upper:]' '[:lower:]'
@@ -74,15 +76,17 @@ pipeline {
                     sh "curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3"
                     sh "sudo chmod 700 get_helm.sh"
                     sh "./get_helm.sh"
-                    // withCredentials([file(credentialsId: 'k3d-shalini02', variable: 'KUBECRED')]) {
-                    //     // change context with related namespace
-                    //     sh 'mkdir ~/.kube'
-                    //     sh 'cat $KUBECRED > ~/.kube/config'
-                    //     // sh 'KUBE_API_PORT="--port=8080"'
-                    //     sh "kubectl config view"
-                    //     // sh "kubectl config use-context rancher-desktop"
-                    //     sh "kubectl get nodes"
-                    // }
+                    if (env.deployToLocal == 'false') {
+                        withCredentials([file(credentialsId: kubeconfig, variable: 'KUBECRED')]) {
+                            // change context with related namespace
+                            sh 'mkdir ~/.kube'
+                            sh 'cat $KUBECRED > ~/.kube/config'
+                            // sh 'KUBE_API_PORT="--port=8080"'
+                            sh "kubectl config view"
+                            // sh "kubectl config use-context rancher-desktop"
+                            sh "kubectl get nodes"
+                        }
+                    }
                     // sh "helm upgrade --install --set deployment.image=${dockerImage} --set secret.securestring=${IMAGEPULL_SECRET} ${HELM_RELEASE} ./helm-deployment"
                     sh "helm upgrade --install --force --set deployment.image=${imagename} --set secret.securestring=${IMAGEPULL_SECRET} ${HELM_RELEASE} ./helm-deployment"                 
                 }
