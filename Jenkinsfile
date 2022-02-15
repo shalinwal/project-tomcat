@@ -28,7 +28,7 @@ pipeline {
             steps {
                 container('ubuntu') {
                     // sh dockerimg = REGISTRY + ":$GIT_COMMIT"
-                    sh "echo imagename"
+                    sh "echo $imagename"
                     // sh "apt update && apt upgrade -y && apt install curl -y && apt install sudo -y"
                     // // sh "curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -"
                     // // sh "sudo touch /etc/apt/sources.list.d/kubernetes.list "
