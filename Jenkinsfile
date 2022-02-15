@@ -39,7 +39,7 @@ pipeline {
                         sh "sleep 10"
                         sh "docker --version"
                         // "docker build -t ${REGISTRY}:${env.EXECUTOR_NUMBER} ."
-                        dockerImage = docker.build ${env.imagename}
+                        dockerImage = docker.build REGISTRY + ":$GIT_COMMIT"
                     }
                 }
             }
