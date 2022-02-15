@@ -9,6 +9,7 @@ pipeline {
         REGISTRY_CREDENTIAL = 'dockerhub-push'
         IMAGEPULL_SECRET = credentials('dockersecret')
         dockerImage = ''
+        imagename = '${REGISTRY}:$GIT_COMMIT'
         //dockerImage = 'swlidoc/tomcatsample:d22067746f6684c57bd55d689c0891c5d9d22652'
         // MY_ID = $("${env.BRANCH_NAME}-${currentBuild.id}" | tr -dc [A-Za-z0-9-])
         //MY_ID = "${env.BRANCH_NAME}-${currentBuild.id}" | tr -dc '[:alnum:]\n\r' | tr '[:upper:]' '[:lower:]'
@@ -83,7 +84,7 @@ pipeline {
                     //     sh "kubectl get nodes"
                     // }
                     // sh "helm upgrade --install --set deployment.image=${dockerImage} --set secret.securestring=${IMAGEPULL_SECRET} ${HELM_RELEASE} ./helm-deployment"
-                    sh "helm upgrade --install --force --set deployment.image=${dockerImage} --set secret.securestring=${IMAGEPULL_SECRET} ${HELM_RELEASE} ./helm-deployment"                 
+                    sh "helm upgrade --install --force --set deployment.image=${imagename} --set secret.securestring=${IMAGEPULL_SECRET} ${HELM_RELEASE} ./helm-deployment"                 
                 }
             }
         }
