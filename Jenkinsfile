@@ -36,10 +36,11 @@ pipeline {
                     }
                 }
             }
-            }
+        }
         stage('Docker Publish') {
             when {
                 environment name: 'DEPLOY', value: 'true'
+            }
             steps {
                 script {
                     container('ubuntu') {
