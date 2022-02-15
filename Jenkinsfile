@@ -9,7 +9,7 @@ pipeline {
         REGISTRY_CREDENTIAL = 'dockerhub-push'
         IMAGEPULL_SECRET = credentials('dockersecret')
         dockerImage = ''
-        imagename = '${env.REGISTRY} + ":$GIT_COMMIT"'
+        imagename = 'env.REGISTRY + ":$GIT_COMMIT"'
         //dockerImage = 'swlidoc/tomcatsample:d22067746f6684c57bd55d689c0891c5d9d22652'
         // MY_ID = $("${env.BRANCH_NAME}-${currentBuild.id}" | tr -dc [A-Za-z0-9-])
         //MY_ID = "${env.BRANCH_NAME}-${currentBuild.id}" | tr -dc '[:alnum:]\n\r' | tr '[:upper:]' '[:lower:]'
