@@ -1,0 +1,17 @@
+deployment:
+  name: tomcat
+  replicaCount: 2
+  image: REPLACE_ME
+
+ingress:
+  name: tomcat
+  host: "tomcat.localhost"
+
+service:
+  name: tomcat
+
+secret:
+  securestring: REPLACE_ME
+
+namespace:
+  name: tomcat-deploy
