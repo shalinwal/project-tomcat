@@ -5,32 +5,6 @@ metadata:
     some-label: pod
 spec:
   containers:
-    # - name: maven
-    #   image: maven:3.3.9-jdk-8-alpine
-    #   command:
-    #     - cat
-    #   tty: true
-    #   volumeMounts:
-    #     - name: m2
-    #       mountPath: /root/.m2
-    # - name: docker
-    #   image: docker:latest
-    #   command:
-    #     - cat
-    #   tty: true
-    #   privileged: true
-    #   volumeMounts:
-    #     - name: dockersock
-    #       mountPath: /var/run/docker.sock
-    # - name: helm
-    #   image: lachlanevenson/k8s-helm:v3.1.1
-    #   securityContext:
-    #     allowPrivilegeEscalation: true
-    #     runAsUser: 0
-    #     privileged: true        
-    #   command:
-    #     - cat
-    #   tty: true
     - name: ubuntu
       image: ubuntu:21.10
       securityContext:
@@ -40,14 +14,3 @@ spec:
       command:
         - cat
       tty: true
-  #     volumeMounts:
-  #       - name: docker-sock
-  #         mountPath: /var/run
-  #     # privileged: true
-  # volumes:
-  #   - name: docker-sock
-  #     hostPath:
-  #       path: /var/run
-    # - name: m2
-    #   hostPath:
-    #     path: /root/.m2
