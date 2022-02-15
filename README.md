@@ -67,5 +67,5 @@ As per the current jenkinsfile, all deployments to main branch or branches which
 
 ## Continuous deployment
 
-Setting a value of 'false' for deployToLocal environment variable to Jenkinsfile deploys the application on the same kubernetes cluster where the Jenkins instance is setup.
+Setting a value of 'false' for deployToLocal environment variable in Jenkinsfile deploys the application on the same kubernetes cluster where the Jenkins instance is setup.
 To select a different target environment for your deployment, update the kubeconfig variable in Jenkinsfile with the ID of a kubeconfig secret file

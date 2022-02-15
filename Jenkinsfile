@@ -8,7 +8,7 @@ pipeline {
         dockerImage = ''
         imagename = '${REGISTRY}:$GIT_COMMIT'
         deployToLocal = false // Set to true to deploy to same cluster where Jenkins instance is running.
-        kubeconfig = "targetkube" // Set to credential ID for deploying to required target
+        kubeconfig = "okukube" // Set to credential ID for deploying to required target
     }
     agent {
         kubernetes {
@@ -36,11 +36,10 @@ pipeline {
                     }
                 }
             }
-        }PLOY', value: 'true'
             }
         stage('Docker Publish') {
             when {
-                environment name: 'DE
+                environment name: 'DEPLOY', value: 'true'
             steps {
                 script {
                     container('ubuntu') {
