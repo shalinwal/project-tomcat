@@ -73,7 +73,7 @@ pipeline {
                             }
                         }
                         // sh "helm upgrade --install --set deployment.image=${dockerImage} --set secret.securestring=${IMAGEPULL_SECRET} ${HELM_RELEASE} ./helm-deployment"
-                        sh ('helm upgrade --install --force --set deployment.image=imagename --set secret.securestring=IMAGEPULL_SECRET $HELM_RELEASE ./helm-deployment')            
+                        helm upgrade --install --force --set deployment.image=imagename --set secret.securestring=IMAGEPULL_SECRET HELM_RELEASE ./helm-deployment         
                     }
                 }
             }
