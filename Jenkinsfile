@@ -64,7 +64,7 @@ pipeline {
                         sh "curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3"
                         sh "sudo chmod 700 get_helm.sh"
                         sh "./get_helm.sh"
-                        if (env.deployToLocal == 'false') {
+                        sh if (env.deployToLocal == 'false') {
                             withCredentials([file(credentialsId: kubeconfig, variable: 'KUBECRED')]) {
                                 sh 'mkdir ~/.kube'
                                 sh 'cat $KUBECRED > ~/.kube/config'
