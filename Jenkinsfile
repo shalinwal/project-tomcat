@@ -56,7 +56,7 @@ pipeline {
                 environment name: 'DEPLOY', value: 'true'
             }
             steps {
-                script {
+                // script {
                     container('ubuntu') {
                         // sh "apt update && apt upgrade -y && apt install curl -y && apt install sudo -y"
                         sh 'curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl'
@@ -75,7 +75,7 @@ pipeline {
                         // sh "helm upgrade --install --set deployment.image=${dockerImage} --set secret.securestring=${IMAGEPULL_SECRET} ${HELM_RELEASE} ./helm-deployment"
                         sh ('helm upgrade --install --force --set deployment.image=imagename --set secret.securestring=IMAGEPULL_SECRET HELM_RELEASE ./helm-deployment')            
                     }
-                }
+                // }
             }
         }
     }
