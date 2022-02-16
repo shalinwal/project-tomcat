@@ -7,7 +7,7 @@ pipeline {
         IMAGEPULL_SECRET = credentials('dockersecret')
         dockerImage = ''
         imagename = '${REGISTRY}:$GIT_COMMIT'
-        deployToLocal = true // Set to true to deploy to same cluster where Jenkins instance is running.
+        deployToLocal = true // accepted values : false/true . Set to true to deploy to same cluster where Jenkins instance is running.
         kubeconfig = "okukube" // Set to credential ID for deploying to required target
     }
     agent {
@@ -58,7 +58,7 @@ pipeline {
             steps {
                 script {
                     container('ubuntu') {
-                        sh "apt update && apt upgrade -y && apt install curl -y && apt install sudo -y"
+                        // sh "apt update && apt upgrade -y && apt install curl -y && apt install sudo -y"
                         sh 'curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl'
                         sh "chmod +x ./kubectl && mv ./kubectl /usr/local/bin"
                         sh "curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3"
