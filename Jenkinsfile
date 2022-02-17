@@ -35,7 +35,7 @@ pipeline {
                         sh "sudo chmod 666 /var/run/docker.sock"
                         sh "sleep 10"
                         sh "docker --version"
-                        dockerImage = docker.build REGISTRY + ":$GIT_COMMIT"
+                        dockerImage = docker.build $imagename
                     }
                 }
             }
