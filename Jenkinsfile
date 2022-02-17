@@ -13,6 +13,7 @@ pipeline {
         imagename = 'swlidoc/tomcatsample:a0198bfd22ca922a8fa216c15ef7d3d66756fa8d'
         deployToLocal = true // accepted values : false/true . Set to true to deploy to same cluster where Jenkins instance is running.
         kubeconfig = "okukube" // Set to credential ID for deploying to required target
+        imageCreds = "imageCreds"
     }
     agent {
         kubernetes {
