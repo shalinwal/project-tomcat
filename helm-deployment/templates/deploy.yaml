@@ -10,12 +10,10 @@ spec:
   selector:
     matchLabels:
       app: {{ .Values.deployment.name }}
-      app: {{ .Values.name }}
   template:
     metadata:
       labels:
         app: {{ .Values.deployment.name }}
-        app: {{ .Values.name }}
     spec:
       containers:
       - name: {{ .Values.deployment.name }}

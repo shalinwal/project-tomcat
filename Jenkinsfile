@@ -7,8 +7,8 @@ pipeline {
         // imageCredentialsUser = 'imageCredentialsUser'
         // imageCredentialsPass = 'imageCredentialsPass'
         // IMAGEPULL_SECRET = credentials('dockersecret')
-        imageCreds = "imageCreds"
-        dockerImage = ''
+        // imageCreds = "imageCreds"
+        dockerImage = '' // do not change this
         imagename = '${REGISTRY}:$GIT_COMMIT'
         deployToLocal = true // accepted values : false/true . Set to true to deploy to same cluster where Jenkins instance is running.
         kubeconfig = "okukube" // Set to kubeconfig credential ID for deploying to required target, deployToLocal must be set to false
@@ -76,7 +76,7 @@ pipeline {
                             }
                         }
                         withCredentials([
-                            usernamePassword(credentialsId: imageCreds, usernameVariable: 'imageCredentialsUser', passwordVariable: 'imageCredentialsPass')
+                            usernamePassword(credentialsId: REGISTRY_CREDENTIAL, usernameVariable: 'imageCredentialsUser', passwordVariable: 'imageCredentialsPass')
                         ]){
                             sh ('helm upgrade --install --force --set deployment.image=${imagename} --set imageCredentials.username=$imageCredentialsUser --set imageCredentials.password=$imageCredentialsPass $HELM_RELEASE ./helm-deployment')            
                         }
