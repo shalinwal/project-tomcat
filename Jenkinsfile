@@ -2,8 +2,8 @@ pipeline {
     environment {
         DEPLOY = "${env.BRANCH_NAME == "main" || env.BRANCH_NAME.contains("features") ? "true" : "false" || env.BRANCH_NAME.contains("develop") ? "true" : "false"}"
         HELM_RELEASE = 'tomcat-deployment'
-        REGISTRY = "swlidoc/tomcatsample"
-        REGISTRY_CREDENTIAL = 'dockerhub-push-pull'
+        REGISTRY = "swlidoc/tomcatsample" // Replace with your own repository and image name
+        REGISTRY_CREDENTIAL = 'dockerhub-push-pull' // setup this as username/password dockerhub private registry credential in Jenkins
         dockerImage = '' // do not change this
         imagename = "${REGISTRY}:$GIT_COMMIT"
         deployToLocal = true // accepted values : false/true . Set to true to deploy to same cluster where Jenkins instance is running.
@@ -25,7 +25,6 @@ pipeline {
                     container('ubuntu') {
                         sh "apt update && apt upgrade -y && apt install curl -y && apt install sudo -y"
                         sh "curl -fsSL https://get.docker.com/ | sh"
-                        sh "sudo service docker stop"
                         sh "echo \"limit nofile 262144 262144\" >> /etc/init/docker.conf"
                         sh "sudo service docker start"
                         sh "sudo chmod 666 /var/run/docker.sock"
@@ -66,7 +65,6 @@ pipeline {
                             withCredentials([file(credentialsId: kubeconfig, variable: 'KUBECRED')]) {
                                 sh 'mkdir ~/.kube'
                                 sh 'cat $KUBECRED > ~/.kube/config'
-                                sh "kubectl config view"
                                 sh "kubectl get nodes"
                             }
                         }
