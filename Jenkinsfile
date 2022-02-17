@@ -1,14 +1,13 @@
 pipeline {
     environment {
         DEPLOY = "${env.BRANCH_NAME == "main" || env.BRANCH_NAME.contains("features") ? "true" : "false" || env.BRANCH_NAME.contains("develop") ? "true" : "false"}"
-        HELM_RELEASE = "tomcat-deployment"
+        HELM_RELEASE = 'tomcat-deployment'
         REGISTRY = "swlidoc/tomcatsample"
-        REGISTRY_CREDENTIAL = 'dockerhub-push'
-        IMAGEPULL_SECRET = credentials('dockersecret')
-        dockerImage = ''
-        imagename = '${REGISTRY}:$GIT_COMMIT'
-        deployToLocal = true // Set to true to deploy to same cluster where Jenkins instance is running.
-        kubeconfig = "okukube" // Set to credential ID for deploying to required target
+        REGISTRY_CREDENTIAL = 'dockerhub-push-pull'
+        dockerImage = '' // do not change this
+        imagename = "${REGISTRY}:$GIT_COMMIT"
+        deployToLocal = true // accepted values : false/true . Set to true to deploy to same cluster where Jenkins instance is running.
+        kubeconfig = "REPLACE_ME" // Set to kubeconfig credential ID for deploying to required target, deployToLocal must be set to false
     }
     agent {
         kubernetes {
@@ -58,7 +57,6 @@ pipeline {
             steps {
                 script {
                     container('ubuntu') {
-                        sh "apt update && apt upgrade -y && apt install curl -y && apt install sudo -y"
                         sh 'curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl'
                         sh "chmod +x ./kubectl && mv ./kubectl /usr/local/bin"
                         sh "curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3"
@@ -72,8 +70,11 @@ pipeline {
                                 sh "kubectl get nodes"
                             }
                         }
-                        // sh "helm upgrade --install --set deployment.image=${dockerImage} --set secret.securestring=${IMAGEPULL_SECRET} ${HELM_RELEASE} ./helm-deployment"
-                        sh "helm upgrade --install --force --set deployment.image=${imagename} --set secret.securestring=${IMAGEPULL_SECRET} ${HELM_RELEASE} ./helm-deployment"                 
+                        withCredentials([
+                            usernamePassword(credentialsId: REGISTRY_CREDENTIAL, usernameVariable: 'imageCredentialsUser', passwordVariable: 'imageCredentialsPass')
+                        ]){
+                            sh ('helm upgrade --install --force --set deployment.image=$imagename --set imageCredentials.username=$imageCredentialsUser --set imageCredentials.password=$imageCredentialsPass $HELM_RELEASE ./helm-deployment')            
+                        }
                     }
                 }
             }
