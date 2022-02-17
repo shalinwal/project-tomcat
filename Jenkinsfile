@@ -1,6 +1,7 @@
 pipeline {
     environment {
-        DEPLOY = "${env.BRANCH_NAME == "main" || env.BRANCH_NAME.contains("features") ? "true" : "false" || env.BRANCH_NAME.contains("develop") ? "true" : "false"}"
+        //DEPLOY = "${env.BRANCH_NAME == "main" || env.BRANCH_NAME.contains("features") ? "true" : "false" || env.BRANCH_NAME.contains("develop") ? "true" : "false"}"
+        DEPLOY = "true"
         HELM_RELEASE = 'tomcat-deployment'
         REGISTRY = "swlidoc/tomcatsample"
         REGISTRY_CREDENTIAL = 'dockerhub-push'
