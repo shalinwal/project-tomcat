@@ -23,7 +23,7 @@ pipeline {
     stages {
         stage('Docker Build') {
             when {
-                environment name: 'DEPLOY', value: 'true'
+                environment name: 'DEPLOY', value: 'false'
             }
             steps {
                 script {
@@ -43,7 +43,7 @@ pipeline {
         }
         stage('Docker Publish') {
             when {
-                environment name: 'DEPLOY', value: 'true'
+                environment name: 'DEPLOY', value: 'false'
             }
             steps {
                 script {
