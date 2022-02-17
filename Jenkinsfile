@@ -4,8 +4,8 @@ pipeline {
         HELM_RELEASE = 'tomcat-deployment'
         REGISTRY = "swlidoc/tomcatsample"
         REGISTRY_CREDENTIAL = 'dockerhub-push'
-        imageCredentialsUser = credentials('imageCredentialsUser')
-        imageCredentialsPass = credentials('imageCredentialsPass')
+        imageCredentialsUser = 'imageCredentialsUser'
+        imageCredentialsPass = 'imageCredentialsPass'
         // IMAGEPULL_SECRET = credentials('dockersecret')
         dockerImage = ''
         imagename = '${REGISTRY}:$GIT_COMMIT'
@@ -75,7 +75,7 @@ pipeline {
                             }
                         }
                         // sh "helm upgrade --install --set deployment.image=${dockerImage} --set secret.securestring=${IMAGEPULL_SECRET} ${HELM_RELEASE} ./helm-deployment"
-                        sh ('helm upgrade --install --force --set deployment.image=imagename --set imageCredentials.username=$imageCredentialsUser--set imageCredentials.password=$imageCredentialsPass $HELM_RELEASE ./helm-deployment')            
+                        sh ('helm upgrade --install --force --set deployment.image=imagename --set imageCredentials.username=imageCredentialsUser--set imageCredentials.password=imageCredentialsPass $HELM_RELEASE ./helm-deployment')            
                     }
                 }
             }
