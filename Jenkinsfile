@@ -3,7 +3,7 @@ pipeline {
         DEPLOY = "${env.BRANCH_NAME == "main" || env.BRANCH_NAME.contains("features") ? "true" : "false" || env.BRANCH_NAME.contains("develop") ? "true" : "false"}"
         HELM_RELEASE = 'tomcat-deployment'
         REGISTRY = "swlidoc/tomcatsample"
-        REGISTRY_CREDENTIAL = 'dockerhub-push'
+        REGISTRY_CREDENTIAL = 'dockerhub-push-pull'
         // imageCredentialsUser = 'imageCredentialsUser'
         // imageCredentialsPass = 'imageCredentialsPass'
         // IMAGEPULL_SECRET = credentials('dockersecret')
@@ -11,7 +11,7 @@ pipeline {
         dockerImage = '' // do not change this
         imagename = "${REGISTRY}:$GIT_COMMIT"
         deployToLocal = true // accepted values : false/true . Set to true to deploy to same cluster where Jenkins instance is running.
-        kubeconfig = "okukube" // Set to kubeconfig credential ID for deploying to required target, deployToLocal must be set to false
+        kubeconfig = "REPLACE_ME" // Set to kubeconfig credential ID for deploying to required target, deployToLocal must be set to false
     }
     agent {
         kubernetes {
@@ -35,7 +35,7 @@ pipeline {
                         sh "sudo chmod 666 /var/run/docker.sock"
                         sh "sleep 10"
                         sh "docker --version"
-                        dockerImage = docker.build $imagename
+                        dockerImage = docker.build imagename
                     }
                 }
             }

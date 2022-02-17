@@ -48,15 +48,9 @@ kubectl create clusterrolebinding serviceaccounts-cluster-admin-default \
   --clusterrole=cluster-admin \
   --serviceaccount=default:default
 ```
-Per the jenkinsfile environment variables used, below 3 environment secrets are needed within the Jenkins project.
+Per the jenkinsfile environment variables used, below secrets are needed within the Jenkins project.
 
-dockersecret : Secret text for use in kubernetes deployment to pull images from docker hub private repository.
-Use below command to generate the base64 encoded secret.
-
-```
-kubectl create secret docker-registry registrypullsecret --docker-server=https://index.docker.io/v1/ --docker-username=REPLACE_ME --docker-password=REPLACE_ME --docker-email=REPLACE_ME --dry-run -o yaml
-```
-dockerhub-push : Username with password for pushing images to docker hub
+dockerhub-push-pull : Username with password for pushing images to docker hub
 kubeconfig : Secret file. Provide the kubeconfig file for your target deployment cluster where the deployment should be done.
 
 
