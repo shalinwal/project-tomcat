@@ -81,7 +81,7 @@ pipeline {
                             usernamePassword(credentialsId: imageCreds, usernameVariable: 'imageCredentialsUser', passwordVariable: 'imageCredentialsPass')
                             // usernamePassword(credentialsId: credsId2, usernameVariable: 'USER2', passwordVariable: 'PASS2')
                         ]){
-                        sh ('helm upgrade --install --force --set deployment.image=$imagename --set imageCredentials.username=$imageCredentialsUser--set imageCredentials.password=$imageCredentialsPass $HELM_RELEASE ./helm-deployment')            
+                        sh ('helm upgrade --install --force --set deployment.image=$imagename --set imageCredentials.username=imageCredentialsUser--set imageCredentials.password=imageCredentialsPass $HELM_RELEASE ./helm-deployment')            
                         }
                     }
                 }
