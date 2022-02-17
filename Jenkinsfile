@@ -4,10 +4,6 @@ pipeline {
         HELM_RELEASE = 'tomcat-deployment'
         REGISTRY = "swlidoc/tomcatsample"
         REGISTRY_CREDENTIAL = 'dockerhub-push-pull'
-        // imageCredentialsUser = 'imageCredentialsUser'
-        // imageCredentialsPass = 'imageCredentialsPass'
-        // IMAGEPULL_SECRET = credentials('dockersecret')
-        // imageCreds = "imageCreds"
         dockerImage = '' // do not change this
         imagename = "${REGISTRY}:$GIT_COMMIT"
         deployToLocal = true // accepted values : false/true . Set to true to deploy to same cluster where Jenkins instance is running.
@@ -35,7 +31,7 @@ pipeline {
                         sh "sudo chmod 666 /var/run/docker.sock"
                         sh "sleep 10"
                         sh "docker --version"
-                        dockerImage = docker.build imagename
+                        dockerImage = docker.build REGISTRY + ":$GIT_COMMIT"
                     }
                 }
             }
@@ -61,7 +57,6 @@ pipeline {
             steps {
                 script {
                     container('ubuntu') {
-                        // sh "apt update && apt upgrade -y && apt install curl -y && apt install sudo -y"
                         sh 'curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl'
                         sh "chmod +x ./kubectl && mv ./kubectl /usr/local/bin"
                         sh "curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3"

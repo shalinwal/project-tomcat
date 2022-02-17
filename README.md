@@ -52,6 +52,7 @@ Per the jenkinsfile environment variables used, below secrets are needed within 
 
 dockerhub-push-pull : Username with password for pushing images to docker hub
 kubeconfig : Secret file. Provide the kubeconfig file for your target deployment cluster where the deployment should be done.
+             When deployToLocal = true, this variable need not be provided.
 
 
 ## Running the Jenkins pipeline
