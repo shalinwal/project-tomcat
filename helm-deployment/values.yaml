@@ -10,8 +10,20 @@ ingress:
 service:
   name: tomcat
 
-secret:
-  securestring: REPLACE_ME
+# secret:
+#   securestring: REPLACE_ME
 
 namespace:
   name: tomcat-deploy
+
+imageCredentials:
+  registry: https://index.docker.io/v1/
+  username: REPLACE_ME
+  password: REPLACE_ME
+
+# serviceAccount:
+#   # Specifies whether a service account should be created
+#   create: true
+#   # The name of the service account to use.
+#   # If not set and create is true, a name is generated using the fullname template
+#   name:

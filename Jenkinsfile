@@ -4,7 +4,9 @@ pipeline {
         HELM_RELEASE = 'tomcat-deployment'
         REGISTRY = "swlidoc/tomcatsample"
         REGISTRY_CREDENTIAL = 'dockerhub-push'
-        IMAGEPULL_SECRET = credentials('dockersecret')
+        imageCredentialsUser = credentials('imageCredentialsUser')
+        imageCredentialsPass = credentials('imageCredentialsPass')
+        // IMAGEPULL_SECRET = credentials('dockersecret')
         dockerImage = ''
         imagename = '${REGISTRY}:$GIT_COMMIT'
         deployToLocal = true // accepted values : false/true . Set to true to deploy to same cluster where Jenkins instance is running.
@@ -73,7 +75,7 @@ pipeline {
                             }
                         }
                         // sh "helm upgrade --install --set deployment.image=${dockerImage} --set secret.securestring=${IMAGEPULL_SECRET} ${HELM_RELEASE} ./helm-deployment"
-                        sh ('helm upgrade --install --force --set deployment.image=imagename --set secret.securestring=IMAGEPULL_SECRET $HELM_RELEASE ./helm-deployment')            
+                        sh ('helm upgrade --install --force --set deployment.image=imagename --set imageCredentials.username=imageCredentialsUser--set imageCredentials.password=imageCredentialsPass $HELM_RELEASE ./helm-deployment')            
                     }
                 }
             }
