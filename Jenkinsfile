@@ -4,13 +4,14 @@ pipeline {
         HELM_RELEASE = 'tomcat-deployment'
         REGISTRY = "swlidoc/tomcatsample"
         REGISTRY_CREDENTIAL = 'dockerhub-push'
-        imageCredentialsUser = 'imageCredentialsUser'
-        imageCredentialsPass = 'imageCredentialsPass'
+        // imageCredentialsUser = 'imageCredentialsUser'
+        // imageCredentialsPass = 'imageCredentialsPass'
         // IMAGEPULL_SECRET = credentials('dockersecret')
+        imageCreds = "imageCreds"
         dockerImage = ''
         imagename = '${REGISTRY}:$GIT_COMMIT'
         deployToLocal = true // accepted values : false/true . Set to true to deploy to same cluster where Jenkins instance is running.
-        kubeconfig = "okukube" // Set to credential ID for deploying to required target
+        kubeconfig = "okukube" // Set to kubeconfig credential ID for deploying to required target, deployToLocal must be set to false
     }
     agent {
         kubernetes {
@@ -74,8 +75,11 @@ pipeline {
                                 sh "kubectl get nodes"
                             }
                         }
-                        // sh "helm upgrade --install --set deployment.image=${dockerImage} --set secret.securestring=${IMAGEPULL_SECRET} ${HELM_RELEASE} ./helm-deployment"
-                        sh ('helm upgrade --install --force --set deployment.image=imagename --set imageCredentials.username=imageCredentialsUser--set imageCredentials.password=imageCredentialsPass $HELM_RELEASE ./helm-deployment')            
+                        withCredentials([
+                            usernamePassword(credentialsId: imageCreds, usernameVariable: 'imageCredentialsUser', passwordVariable: 'imageCredentialsPass')
+                        ]){
+                            sh ('helm upgrade --install --force --set deployment.image=imagename --set imageCredentials.username=$imageCredentialsUser --set imageCredentials.password=$imageCredentialsPass $HELM_RELEASE ./helm-deployment')            
+                        }
                     }
                 }
             }
