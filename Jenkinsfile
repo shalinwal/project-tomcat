@@ -9,7 +9,7 @@ pipeline {
         // IMAGEPULL_SECRET = credentials('dockersecret')
         // imageCreds = "imageCreds"
         dockerImage = '' // do not change this
-        imagename = '${REGISTRY}:$GIT_COMMIT'
+        imagename = "${REGISTRY}:$GIT_COMMIT"
         deployToLocal = true // accepted values : false/true . Set to true to deploy to same cluster where Jenkins instance is running.
         kubeconfig = "okukube" // Set to kubeconfig credential ID for deploying to required target, deployToLocal must be set to false
     }
